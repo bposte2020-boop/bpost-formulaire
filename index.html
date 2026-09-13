@@ -1298,6 +1298,11 @@
       }
     });
 
+    // ========== INITIALISATION AUTOMATIQUE BELGIQUE ==========
+    // Déclencher l'activation du formulaire avec la Belgique au chargement
+    const initEvent = new Event('change', { bubbles: true });
+    fPays.dispatchEvent(initEvent);
+
     // Lancement de l'état bloqué initial
     verifierFormulaireTotal();
   </script>
