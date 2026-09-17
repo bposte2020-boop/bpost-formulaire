@@ -884,6 +884,10 @@
       document.getElementById('bpost-success-flow').style.display = 'none';
       document.getElementById('pays').value = '';
       resetForm();
+      
+      // FIX BUG: Réactiver les champs en redéclenchant l'événement change du pays
+      fPays.value = 'BE';
+      fPays.dispatchEvent(new Event('change'));
     }
 
     function resetForm() {
